@@ -4,19 +4,23 @@ import { getPopularMovies, SearchMovies } from "./services/api";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
 import { Movie } from "./types/movie";
+import { useDebounce } from "react-use";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [moviesList, setMoviesList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
       setErrorMessage("");
       try {
-        const popularMovies = searchTerm
-          ? await SearchMovies(searchTerm)
+        const popularMovies = debouncedSearchTerm
+          ? await SearchMovies(debouncedSearchTerm)
           : await getPopularMovies();
 
         setMoviesList(popularMovies);
@@ -28,7 +32,7 @@ const App = () => {
       }
     };
     loadPopularMovies();
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   return (
     <>
