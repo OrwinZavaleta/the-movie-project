@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Search from "./components/Search";
-import { getPopularMovies } from "./services/api";
+import { getPopularMovies, SearchMovies } from "./services/api";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
 import { Movie } from "./types/movie";
@@ -15,8 +15,9 @@ const App = () => {
     const loadPopularMovies = async () => {
       setErrorMessage("");
       try {
-        const popularMovies = await getPopularMovies();
-        console.log(popularMovies);
+        const popularMovies = searchTerm
+          ? await SearchMovies(searchTerm)
+          : await getPopularMovies();
 
         setMoviesList(popularMovies);
       } catch (err) {
@@ -27,7 +28,7 @@ const App = () => {
       }
     };
     loadPopularMovies();
-  }, []);
+  }, [searchTerm]);
 
   return (
     <>

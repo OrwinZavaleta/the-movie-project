@@ -17,3 +17,14 @@ export const getPopularMovies = async () => {
   const data = await response.json();
   return data.results;
 };
+
+export const SearchMovies = async (query: string) => {
+  const response = await fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+      query
+    )}`,
+    API_OPTIONS
+  );
+  const data = await response.json();
+  return data.results;
+};
