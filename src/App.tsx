@@ -7,14 +7,13 @@ export interface Movie {
 }
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState<string>();
+  const [searchTerm, setSearchTerm] = useState("");
   const [moviesList, setMoviesList] = useState([]);
-  const [errorMessage, setErrorMessage] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
-      setLoading(true);
       setErrorMessage("");
       try {
         const popularMovies = await getPopularMovies();
@@ -46,7 +45,9 @@ const App = () => {
 
           <section className="all-movies">
             <h2>All movies</h2>
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+            {errorMessage === "" && (
+              <p className="text-red-500">{errorMessage}</p>
+            )}
 
             {loading ? (
               <p className="text-white">Loading...</p>
