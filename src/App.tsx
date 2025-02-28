@@ -5,13 +5,18 @@ import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
 import { Movie } from "./types/movie";
 import { useDebounce } from "react-use";
+import { getTrendingMovies, updateSearchCount } from "./services/appwrite";
+import { Models } from "appwrite";
 
 const App = () => {
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+
   const [moviesList, setMoviesList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  const [trendingMovies, setTrendingMovies] = useState<Models.Document[]>([]);
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
@@ -23,6 +28,9 @@ const App = () => {
           ? await SearchMovies(debouncedSearchTerm)
           : await getPopularMovies();
 
+        if (searchTerm && popularMovies.length > 0) {
+          await updateSearchCount(searchTerm, popularMovies[0]);
+        }
         setMoviesList(popularMovies);
       } catch (err) {
         console.log(err);
@@ -33,6 +41,20 @@ const App = () => {
     };
     loadPopularMovies();
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    loadTrendingMovies();
+  }, []);
+  const loadTrendingMovies = async () => {
+    try {
+      const movies = await getTrendingMovies();
+      if (movies) {
+        setTrendingMovies(movies);
+      }
+    } catch (error) {
+      console.error(`Error fetching trending movies: ${error}`);
+    }
+  };
 
   return (
     <>
@@ -49,8 +71,22 @@ const App = () => {
             <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </header>
 
+          {trendingMovies.length > 0 && (
+            <section className="trending">
+              <h2>Trending Movies</h2>
+              <ul>
+                {trendingMovies.map((movie, index) => (
+                  <li key={movie.$id}>
+                    <p> {index + 1}</p>
+                    <img src={movie.poster_url} alt={movie.title} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="all-movies">
-            <h2 className="mt-[40px] text-center">All movies:</h2>
+            <h2 className="mt-[40px]">All movies</h2>
             {errorMessage !== "" && (
               <p className="text-red-500">{errorMessage}</p>
             )}
