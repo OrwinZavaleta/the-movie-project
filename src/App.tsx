@@ -17,6 +17,8 @@ const App = () => {
       setErrorMessage("");
       try {
         const popularMovies = await getPopularMovies();
+        console.log(popularMovies);
+
         setMoviesList(popularMovies);
       } catch (err) {
         console.log(err);
@@ -35,7 +37,7 @@ const App = () => {
 
         <div className="wrapper">
           <header>
-            <img src="./hero.png" alt="hero Banner" />
+            <img src="/hero.png" alt="hero Banner" />
             <h1>
               Find <span className="text-gradient">Movie</span> You'll Enjoy
               Without the Hassle
@@ -45,19 +47,25 @@ const App = () => {
 
           <section className="all-movies">
             <h2>All movies</h2>
-            {errorMessage === "" && (
+            {errorMessage !== "" && (
               <p className="text-red-500">{errorMessage}</p>
             )}
 
             {loading ? (
               <p className="text-white">Loading...</p>
             ) : (
-              <ul>
-                {moviesList.map((movie: Movie) => (
-                  <>
-                    <p className="text-white">{movie.title}</p>
-                  </>
-                ))}
+              <ul className="movie-list">
+                {Array.isArray(moviesList) && moviesList.length > 0 ? (
+                  moviesList.map((movie: Movie, index: number) => (
+                    <li key={movie.title || index}>
+                      <p className="text-white">
+                        {movie.title || "Unknown Title"}
+                      </p>
+                    </li>
+                  ))
+                ) : (
+                  <p className="text-white">No movies found</p>
+                )}
               </ul>
             )}
           </section>

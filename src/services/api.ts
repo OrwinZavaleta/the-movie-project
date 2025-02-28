@@ -6,13 +6,12 @@ const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${API_KEY}`,
   },
 };
 
 export const getPopularMovies = async () => {
   const response = await fetch(
-    `${BASE_URL}/discover/movie?sort_by=popularity.desc`,
+    `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`,
     API_OPTIONS
   );
   const data = await response.json();
