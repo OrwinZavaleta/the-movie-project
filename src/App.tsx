@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import { getPopularMovies } from "./services/api";
-
-export interface Movie {
-  title: string;
-}
+import Spinner from "./components/Spinner";
+import MovieCard from "./components/MovieCard";
+import { Movie } from "./types/movie";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,23 +45,17 @@ const App = () => {
           </header>
 
           <section className="all-movies">
-            <h2>All movies</h2>
+            <h2 className="mt-[40px] text-center">All movies:</h2>
             {errorMessage !== "" && (
               <p className="text-red-500">{errorMessage}</p>
             )}
 
             {loading ? (
-              <p className="text-white">Loading...</p>
+              <Spinner />
             ) : (
               <ul className="movie-list">
                 {Array.isArray(moviesList) && moviesList.length > 0 ? (
-                  moviesList.map((movie: Movie, index: number) => (
-                    <li key={movie.title || index}>
-                      <p className="text-white">
-                        {movie.title || "Unknown Title"}
-                      </p>
-                    </li>
-                  ))
+                  moviesList.map((movie: Movie) => <MovieCard movie={movie} />)
                 ) : (
                   <p className="text-white">No movies found</p>
                 )}
