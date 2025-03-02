@@ -1,5 +1,5 @@
 import { Client, Databases, ID, Query } from "appwrite";
-import { Movie } from "../types/movie";
+import { Movie } from "../types/MovieProvider";
 
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;

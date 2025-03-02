@@ -3,7 +3,7 @@ import Search from "./components/Search";
 import { getPopularMovies, SearchMovies } from "./services/api";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
-import { Movie } from "./types/movie";
+import { Movie } from "./types/MovieProvider";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCount } from "./services/appwrite";
 import { Models } from "appwrite";
