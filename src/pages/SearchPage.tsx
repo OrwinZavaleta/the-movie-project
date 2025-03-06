@@ -5,6 +5,7 @@ import Search from "../components/Search";
 import Spinner from "../components/Spinner";
 import { SearchMovies } from "../services/api";
 import { Movie } from "../types/MovieProvider";
+import { updateSearchCount } from "../services/appwrite";
 
 const SearchPage = () => {
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
@@ -33,6 +34,10 @@ const SearchPage = () => {
       } else {
         setMoviesList(searchResults);
         setErrorMessage("");
+      }
+
+      if (searchResults.length > 0) {
+        await updateSearchCount(query, searchResults[0]);
       }
     } catch (err) {
       console.error(`Error searching movies: ${err}`);

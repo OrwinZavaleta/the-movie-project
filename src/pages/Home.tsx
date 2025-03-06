@@ -1,36 +1,24 @@
 import { useState, useEffect } from "react";
-import { useDebounce } from "react-use";
 import { Models } from "appwrite";
-import { getPopularMovies, SearchMovies } from "../services/api";
-import { getTrendingMovies, updateSearchCount } from "../services/appwrite";
+import { getPopularMovies } from "../services/api";
+import { getTrendingMovies } from "../services/appwrite";
 import Search from "../components/Search";
 import Spinner from "../components/Spinner";
 import { Movie } from "../types/MovieProvider";
 import MovieCard from "../components/MovieCard";
 
 const Home = () => {
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-
   const [moviesList, setMoviesList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
   const [trendingMovies, setTrendingMovies] = useState<Models.Document[]>([]);
 
-  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
-
   useEffect(() => {
     const loadPopularMovies = async () => {
       setErrorMessage("");
       try {
-        const popularMovies = debouncedSearchTerm
-          ? await SearchMovies(debouncedSearchTerm)
-          : await getPopularMovies();
-
-        if (searchTerm && popularMovies.length > 0) {
-          await updateSearchCount(searchTerm, popularMovies[0]);
-        }
+        const popularMovies = await getPopularMovies();
         setMoviesList(popularMovies);
       } catch (err) {
         console.log(err);
@@ -40,7 +28,7 @@ const Home = () => {
       }
     };
     loadPopularMovies();
-  }, [debouncedSearchTerm]);
+  });
 
   useEffect(() => {
     loadTrendingMovies();
