@@ -65,7 +65,7 @@ const Home = () => {
           )}
 
           <section className="all-movies">
-            <h2 className="mt-[40px]">All movies</h2>
+            <h2 className="mt-[40px]">Popular Movies</h2>
             {errorMessage !== "" && (
               <p className="text-red-500">{errorMessage}</p>
             )}
