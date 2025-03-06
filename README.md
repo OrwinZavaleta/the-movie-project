@@ -1,8 +1,3 @@
-# The Movie Project - README Update
-
-I'll create a more descriptive README.md for your movie project that highlights its key features and functionality.
-
-```markdown:e:\PracticasEmpresa\MyExperiments\PractAprenReact\Third-project\the-movie-project\README.md
 # The Movie Project
 
 A modern React application for discovering, searching, and managing your favorite movies.
