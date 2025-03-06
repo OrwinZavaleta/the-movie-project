@@ -44,7 +44,7 @@
   }
 
   header img {
-    @apply w-full max-w-md h-auto object-contain mx-auto drop-shadow-md pb-10;
+    @apply w-full max-w-md h-auto object-contain mx-auto drop-shadow-md pb-1;
   }
 }
 

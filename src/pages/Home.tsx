@@ -60,7 +60,7 @@ const Home = () => {
     <>
       <main className="pattern">
         <div className="wrapper">
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Search />
 
           {trendingMovies.length > 0 && (
             <section className="trending">
