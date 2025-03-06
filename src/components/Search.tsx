@@ -23,9 +23,8 @@ const Search = () => {
             onSubmit={handleSearch}
             className="flex justify-between items-center w-full"
           >
-            <img src="/search.svg" alt="search" />
-
-            <div>
+            <img src="/search.svg" alt="search" className="w-6 h-6 mr-2" />
+            <div className="flex-1 mx-2">
               <input
                 type="text"
                 placeholder="Search through thousands of movies"
@@ -35,7 +34,7 @@ const Search = () => {
             </div>
             <button
               type="submit"
-              className="bg-light-100/20 hover:bg-light-100/30 text-white px-4 py-1 rounded-md transition-colors"
+              className="bg-light-100/20 hover:bg-light-100/30 text-white px-4 py-2 rounded-md transition-colors"
             >
               Search
             </button>

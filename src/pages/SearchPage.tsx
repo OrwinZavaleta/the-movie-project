@@ -58,9 +58,7 @@ const SearchPage = () => {
             ) : (
               <ul className="movie-list">
                 {Array.isArray(moviesList) && moviesList.length > 0 ? (
-                  moviesList.map((movie: Movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
-                  ))
+                  moviesList.map((movie: Movie) => <MovieCard movie={movie} />)
                 ) : (
                   <p className="text-white">
                     {errorMessage || "Search for movies to see results"}
