@@ -1,38 +1,56 @@
 import { Movie } from "../types/MovieProvider";
+import { useFavoriteContext } from "../contexts/FavoriteContext";
 
 interface MovieCardProps {
   movie: Movie;
 }
 
-const MovieCard = ({
-  movie: { title, poster_path, vote_average, release_date, original_language },
-}: MovieCardProps) => {
+const MovieCard = ({ movie }: MovieCardProps) => {
+  const { isFavorite, addToFavorites, removeFromFavorites } =
+    useFavoriteContext();
+
+  const favorite = isFavorite(movie.id);
+
+  const handleFavoriteClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (favorite) removeFromFavorites(movie.id);
+    else addToFavorites(movie);
+  };
+
   return (
     <>
       <div className="movie-card">
-        <img
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : "/no-image.jpg"
-          }
-          alt={title}
-        />
+        <div>
+          <img
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                : "/no-image.jpg"
+            }
+            alt={movie.title}
+          />
+          <button className="favorite-btn" onClick={handleFavoriteClick}>
+            {favorite ? "❤️" : "🤍"}
+          </button>
+        </div>
+
         <div className="mt-4">
-          <h3>{title}</h3>
+          <h3>{movie.title}</h3>
           <div className="content">
             <div className="rating">
               <img src="star.svg" alt="Star Icon" />
-              <p>{vote_average ? vote_average.toFixed(1) : "N/A"}</p>
+              <p>
+                {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
+              </p>
 
               <span>•</span>
 
-              <p className="lang">{original_language}</p>
+              <p className="lang">{movie.original_language}</p>
 
               <span>•</span>
 
               <p className="year">
-                {release_date ? release_date.split("-")[0] : "N/A"}
+                {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
               </p>
             </div>
           </div>

@@ -28,7 +28,7 @@
   }
 
   h1 {
-    @apply mx-auto max-w-4xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px];
+    @apply mx-auto max-w-4xl text-center text-4xl font-bold leading-tight tracking-[-1%] text-white sm:text-[48px] sm:leading-[60px];
   }
 
   h2 {
@@ -44,7 +44,7 @@
   }
 
   header img {
-    @apply w-full max-w-lg h-auto object-contain mx-auto drop-shadow-md;
+    @apply w-full max-w-md h-auto object-contain mx-auto drop-shadow-md pb-1;
   }
 }
 
@@ -102,10 +102,30 @@
   }
 
   .movie-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
+    @apply relative rounded-2xl overflow-hidden bg-dark-100 transition-transform duration-200 h-full flex flex-col p-5 shadow-inner  shadow-light-100/10;
 
-    & img {
-      @apply rounded-lg h-auto w-full;
+    &:hover {
+      @apply translate-y-[-5px];
+    }
+
+    & .movie-poster {
+      @apply relative aspect-[2/3] w-full;
+    }
+
+    & .movie-poster img {
+      @apply w-full h-full rounded-lg;
+    }
+
+    & .movie-overlay {
+      @apply absolute inset-0 bg-gradient-to-b from-black/10 to-black/80 opacity-0 transition-opacity duration-200 flex flex-col justify-end p-4;
+    }
+
+    &:hover .movie-overlay {
+      @apply opacity-100;
+    }
+
+    & .favorite-btn {
+      @apply absolute top-4 right-4 text-white text-2xl p-2 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200;
     }
 
     & h3 {
