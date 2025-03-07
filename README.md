@@ -11,7 +11,7 @@
 A modern React application for discovering, searching, and managing your favorite movies.
 👇 (And is deployed on Vercel)
 
-[✨ Live Demo](https://the-movie-project-kappa.vercel.app/) | [Report Bug](https://github.com/yourusername/the-movie-project/issues) | [Request Feature](https://github.com/yourusername/the-movie-project/issues)
+[✨ Live Demo](https://the-movie-project-kappa.vercel.app/) | [Report Bug](https://github.com/OrwinZavaleta/the-movie-project/issues) | [Request Feature](https://github.com/OrwinZavaleta/the-movie-project/issues)
 
 
 </div>
