@@ -1,3 +1,5 @@
+// Página en construcción --- aún no terminado ---
+
 const Footer = () => {
   return (
     <footer>
